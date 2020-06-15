@@ -3,12 +3,16 @@
     <head>
         <title>ICS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/lobby.css') }}"> -->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     
     <body>
         <h1>ICS Calendar Shifter</h1>
-
+        <form action="/upload" enctype="multipart/form-data" method="POST"> 
+            <label for="fileUpload">Upload an ICS file:</label>
+            <input type="file" id="fileUpload" name="file">
+            <input type="submit" id="submitBtn" value="Upload">
+        </form>
         <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script> -->
     </body>    
 </html>
