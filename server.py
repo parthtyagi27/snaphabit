@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template, jsonify, redirect, url_for
+from flask import Flask, request, render_template, jsonify, redirect, url_for, send_file
 import os
+import server_helper
 
 app = Flask(__name__)
 
@@ -11,8 +12,14 @@ def main():
 def upload():
     print("Upload endpoint invoked")
     input_file = request.files['file']
+    print(request.values['shiftDate'])
+    output = server_helper.shiftFile(input_file, request.values['shiftDate'])
     # input_file.save(os.path.join(app.root_path, 'serverInput.ics'))
-    return redirect("/")
+    # return redirect("/")
+    output_file = open(os.path.abspath("output_" + input_file.filename), "wb+")
+    output_file.write(output)
+    output_file.close()
+    return send_file("output_" + input_file.filename, as_attachment=True)
 
 if (__name__ == '__main__'):
     # sys.stdout = sys.stderr = open('server-log.txt', 'wt')
